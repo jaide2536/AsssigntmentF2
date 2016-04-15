@@ -18,7 +18,8 @@ public class SpaceShip extends Sprite{
 		g.fillRect(x-5, y+10, 10, 35);
 		g.fillRect(x-15, y+25, 30,5);
 		g.fillRect(x-25, y+40, 50,5);
-		
+		g.setColor(Color.RED);
+		g.fillRect(x-5, y-1, 10, 10);
 	}
 
 	public void move(int direction){

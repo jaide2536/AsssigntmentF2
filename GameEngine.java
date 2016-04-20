@@ -14,7 +14,8 @@ import javax.swing.Timer;
 public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Bullet> bullets = new ArrayList<>();	
 	private SpaceShip v;	
 	
 	private Timer timer;
@@ -65,18 +66,42 @@ public class GameEngine implements KeyListener, GameReporter{
 				score += 100;
 			}
 		}
+
+		Iterator<Bullet> b_iter = bullets.iterator();
+                while(b_iter.hasNext()){
+                    Bullet b = b_iter.next();
+                    b.proceed();
+                }
+        }
 		
 		gp.updateGameUI(this);
 		
 		Rectangle2D.Double vr = v.getRectangle();
 		Rectangle2D.Double er;
+		Rectangle2D.Double br;
+
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
 				die();
 				return;
+
 			}
 		}
+
+		for(Bullet b : bullets ){
+            br = b.getRectangle();
+            if(br.intersects(er)){  
+            	e.enemydie();
+            	return;
+        		}
+
+
+	public void fire(){
+		Bullet b = new Bullet((v.x)+12,(v.y)-20);
+		gp.sprites.add(b);
+		bullets.add(b);
+		}	
 	}
 	
 	public void die(){
@@ -91,14 +116,17 @@ public class GameEngine implements KeyListener, GameReporter{
 		case KeyEvent.VK_RIGHT:
 			v.move(1);
 			break;
+		case KeyEvent.VK_D:
+			difficulty += 0.1;
+			break;
 		case KeyEvent.VK_DOWN:
 			v.move(0,1);
 			break;
 		case KeyEvent.VK_UP:
 			v.move(0,-1);
 			break;
-		case KeyEvent.VK_D:
-			difficulty += 0.1;
+		case KeyEvent.VK_A:
+			fire();
 			break;
 		}
 	}

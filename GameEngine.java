@@ -67,12 +67,7 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 		}
 
-		Iterator<Bullet> b_iter = bullets.iterator();
-                while(b_iter.hasNext()){
-                    Bullet b = b_iter.next();
-                    b.proceed();
-                }
-        }
+
 		
 		gp.updateGameUI(this);
 		
@@ -89,20 +84,9 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 		}
 
-		for(Bullet b : bullets ){
-            br = b.getRectangle();
-            if(br.intersects(er)){  
-            	e.enemydie();
-            	return;
-        		}
+	
 
 
-	public void fire(){
-		Bullet b = new Bullet((v.x)+12,(v.y)-20);
-		gp.sprites.add(b);
-		bullets.add(b);
-		}	
-	}
 	
 	public void die(){
 		timer.stop();
@@ -125,9 +109,7 @@ public class GameEngine implements KeyListener, GameReporter{
 		case KeyEvent.VK_UP:
 			v.move(0,-1);
 			break;
-		case KeyEvent.VK_A:
-			fire();
-			break;
+	
 		}
 	}
 

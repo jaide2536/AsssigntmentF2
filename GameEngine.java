@@ -15,7 +15,8 @@ public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private ArrayList<Bullet> bullets = new ArrayList<>();	
+	private ArrayList<Bullet> bullets = new ArrayList<>();
+	private ArrayList<BulletNuke> bulletnukes = new ArrayList<>();		
 	private SpaceShip v;	
 	
 	private Timer timer;
@@ -73,12 +74,19 @@ public class GameEngine implements KeyListener, GameReporter{
                     b.proceed();
                 }
         }
+
+        Iterator<BulletNuke> n_iter = bulletnukes.iterator();
+                while(n_iter.hasNext()){
+                    BulletNuke n = n_iter.next();
+                    n.proceed();
+                }
 		
 		gp.updateGameUI(this);
 		
 		Rectangle2D.Double vr = v.getRectangle();
 		Rectangle2D.Double er;
 		Rectangle2D.Double br;
+		Rectangle2D.Double nr;
 
 		for(Enemy e : enemies){
 			er = e.getRectangle();
@@ -96,12 +104,26 @@ public class GameEngine implements KeyListener, GameReporter{
             	return;
         		}
 
+        for(BulletNuke n : bulletnukes ){
+            	nr = n.getRectangle();
+            	if(nr.intersects(er)){  
+            	e.enemydie();
+            	return;
+        		}
+        	}
+
 
 	public void fire(){
 		Bullet b = new Bullet((v.x)+12,(v.y)-20);
 		gp.sprites.add(b);
 		bullets.add(b);
 		}	
+	}
+
+	public void firenu(){
+		BulletNuke n = new BulletNuke((v.x)-400,(v.y)-20);
+		gp.sprites.add(n);
+		bulletnukes.add(n);
 	}
 	
 	public void die(){

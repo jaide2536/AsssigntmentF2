@@ -127,7 +127,10 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 	
 	public void die(){
+		
 		timer.stop();
+		JOptionPane.showMessageDialog(null,"Game Over");	
+		System.exit(0);		
 	}
 	
 	void controlVehicle(KeyEvent e) {

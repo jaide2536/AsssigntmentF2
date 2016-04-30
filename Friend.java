@@ -4,14 +4,14 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-public class Items extends Sprite{
+public class Friend extends Sprite{
 	public static final int Y_TO_FADE = 600;
 	public static final int Y_TO_DIE = 600;
 	
 	private int step = 12;
 	private boolean alive = true;
 	
-	public Items (int x, int y) {
+	public Friend (int x, int y) {
 		super(x, y, 19, 2);
 
 	}
@@ -42,7 +42,7 @@ public class Items extends Sprite{
 
 	}
 
-	public boolean itemsdie(){
+	public boolean frienddie(){
 	return alive = false;
 	}
 }
